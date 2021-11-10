@@ -12,13 +12,13 @@
   "pluginOptions": {},
   "attributes": {
     "user": {
+      "via": "likes",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "likes"
+      "model": "user"
     },
     "project": {
-      "model": "project",
-      "via": "likes"
+      "via": "likes",
+      "model": "project"
     }
   }
 }

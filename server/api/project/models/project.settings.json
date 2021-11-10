@@ -19,9 +19,9 @@
       "type": "text"
     },
     "developer": {
+      "via": "projects",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "projects"
+      "model": "user"
     },
     "githubURL": {
       "type": "string"
@@ -35,6 +35,18 @@
     "likes": {
       "via": "project",
       "collection": "like"
+    },
+    "featuredImage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
     }
   }
 }
