@@ -92,6 +92,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "comments": {
+      "via": "user",
+      "collection": "comment"
     }
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client";
-import { Col, Card, Image } from "react-bootstrap";
+import { Col, Card, Image, Button } from "react-bootstrap";
 
 function ProjectCard({ project }) {
   const get_likes_by_project_id = gql`
@@ -13,7 +13,7 @@ function ProjectCard({ project }) {
   const { firstName, lastName } = project.developer;
 
   function handleLike() {
-   // TODO
+    // TODO
   }
 
   const { error, data, loading } = useQuery(get_likes_by_project_id, {
@@ -25,7 +25,7 @@ function ProjectCard({ project }) {
 
   return (
     <Col key={project.id}>
-      <Card>
+      <Card className="grow-shadow">
         <Card.Img
           variant="top"
           src={
@@ -44,6 +44,9 @@ function ProjectCard({ project }) {
               roundedCircle
             />
             <p>{`${firstName} ${lastName}`}</p>
+            <Button variant="primary" type="submit" className="py-2">
+              Details
+            </Button>
           </div>
           <div>
             <span>Likes: {data.likes.length}</span>

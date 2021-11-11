@@ -47,6 +47,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "comments": {
+      "via": "project",
+      "collection": "comment"
     }
   }
 }
