@@ -44,7 +44,7 @@ function ProjectCard({ project }) {
               roundedCircle
             />
             <p>{`${firstName} ${lastName}`}</p>
-            <Button variant="primary" type="submit" className="py-2">
+            <Button variant="primary" type="submit" className="py-2" href="/details">
               Details
             </Button>
           </div>
