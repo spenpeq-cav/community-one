@@ -1,11 +1,35 @@
-import React, { useState } from "react";
-import { Form, Container, Button, Row, Col } from "react-bootstrap";
+import React, { useState, useContext } from "react";
+import { Form, Container, Button, Row, Col, Spinner } from "react-bootstrap";
+import { gql, useMutation } from "@apollo/client";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+
+const LOGIN_USER = gql`
+  mutation LoginMutation($input: UsersPermissionsLoginInput!) {
+    login(input: $input) {
+      jwt
+      user {
+        username
+        id
+      }
+    }
+  }
+`;
+
+const INITIAL_FORM_STATE = {
+  email: "",
+  password: "",
+};
 
 function LoginForm() {
-  const INITIAL_FORM_STATE = {
-    email: "",
-    password: "",
-  };
+  const { user, setUser } = useContext(UserContext);
+
+  const [LoginMutation, { error, loading }] = useMutation(LOGIN_USER, {
+    onCompleted: (data) => {
+      const { login } = data;
+      setUser({ token: login.jwt, userId: login.user.id });
+    },
+  });
 
   const [formData, setFormData] = useState(INITIAL_FORM_STATE);
 
@@ -20,17 +44,23 @@ function LoginForm() {
     e.preventDefault();
 
     if (formData.email !== "" && formData.password !== "") {
+      LoginMutation({
+        variables: {
+          input: {
+            identifier: formData.email,
+            password: formData.password,
+          },
+        },
+      });
       alert("Form submited");
-      const data = {
-        identifier: formData.email,
-        password: formData.password,
-      };
-      console.log(data);
-      setFormData(INITIAL_FORM_STATE);
     } else {
       alert("Fill out all fields");
     }
   }
+
+  if (loading) return <Spinner animation="grow" />;
+  if (error) return <h1>ERROR!</h1>;
+  if (user) return <Navigate to="/" />;
 
   return (
     <Container>
